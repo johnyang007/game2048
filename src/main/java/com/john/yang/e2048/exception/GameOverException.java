@@ -1,4 +1,4 @@
-package com.john.yang.e2048.game.exception;
+package com.john.yang.e2048.exception;
 
 /**
  * Created by john on 14-3-16.
@@ -15,10 +15,6 @@ public class GameOverException extends Exception {
 
     public GameOverException(Throwable cause) {
         super(cause);
-    }
-
-    public GameOverException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     public GameOverException() {

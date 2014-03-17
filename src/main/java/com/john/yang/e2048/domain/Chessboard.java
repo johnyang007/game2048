@@ -144,7 +144,7 @@ public class Chessboard {
                         chessboardPointsList.get(chessboardPoint.getY())[chessboardPoint.getX()] = chessboardPoint;
                         break;
                     case DOWN:
-                        chessboardPointsList.get(length - 1 - chessboardPoint.getY())[chessboardPoint.getX()] = chessboardPoint;
+                        chessboardPointsList.get(chessboardPoint.getY())[length - 1 - chessboardPoint.getX()] = chessboardPoint;
                         break;
                     case LEFT:
                         chessboardPointsList.get(chessboardPoint.getX())[chessboardPoint.getY()] = chessboardPoint;

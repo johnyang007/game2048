@@ -3,10 +3,11 @@ package com.john.yang.e2048.gui;
 import com.john.yang.e2048.constants.ActionEnum;
 import com.john.yang.e2048.domain.ChessboardPoint;
 import com.john.yang.e2048.game.Game;
-import com.john.yang.e2048.game.exception.GameOverException;
+import com.john.yang.e2048.exception.GameOverException;
 import com.john.yang.e2048.interf.DrawPointInterface;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import sun.print.resources.serviceui;
 
 import java.util.Scanner;
 
@@ -16,9 +17,13 @@ import java.util.Scanner;
 public class TextGui {
 
     private int length;
+    private int maxScore;
+    private int score;
+    private int step;
 
-    public TextGui(int length) {
+    public TextGui(int length, int maxScore) {
         this.length = length;
+        this.maxScore = maxScore;
     }
 
     public void start() {
@@ -29,10 +34,9 @@ public class TextGui {
             @Override
             public void draw(ChessboardPoint chessboardPoint) {
                 if (chessboardPoint.isEmpty()) {
-                    System.out.print(StringUtils.leftPad("-", 2, " "));
+                    System.out.print(StringUtils.leftPad("-", 4, " "));
                 } else {
-                    //print(chessboardPoint.toString());
-                    System.out.print(StringUtils.leftPad(chessboardPoint.getChessman().getNum() + "", 2, " "));
+                    System.out.print(StringUtils.leftPad(chessboardPoint.getChessman().getNum() + "", 4, " "));
                 }
 
                 if (chessboardPoint.getY() == length - 1) {
@@ -40,7 +44,7 @@ public class TextGui {
                 }
             }
         };
-        Game game = new Game(length, drawPointInterface);
+        Game game = new Game(length, maxScore, drawPointInterface);
         game.start();
 
         ActionEnum actionEnum = null;
@@ -74,13 +78,36 @@ public class TextGui {
                     print("请输入 w a s d 控制方向");
             }
 
-            try {
-                game.action(actionEnum);
-            } catch (GameOverException e) {
-                print("游戏结束");
+            step++;
+            score += game.action(actionEnum);
+            if (game.isGameOver()) {
+                printOver();
+                break;
+            } else if (game.isWin()) {
+                printWin();
                 break;
             }
+
+            printGameInfo();
         }
+    }
+
+    /**
+     * 打印成功
+     */
+    private void printWin() {
+        print("恭喜你，游戏成功");
+        printGameInfo();
+    }
+
+    private void printGameInfo() {
+        print("分数：" + score);
+        print("步数：" + step);
+    }
+
+    private void printOver() {
+        print("很遗憾，游戏结束");
+        printGameInfo();
     }
 
     private void print(String s) {

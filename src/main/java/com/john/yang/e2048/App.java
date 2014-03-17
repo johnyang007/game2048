@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) {
         System.out.println("2048");
 
-        new TextGui(4).start();
+        new TextGui(4, 2048).start();
 
     }
 }

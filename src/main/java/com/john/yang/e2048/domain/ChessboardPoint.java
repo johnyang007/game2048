@@ -83,4 +83,17 @@ public class ChessboardPoint {
                 ", chessman=" + chessman +
                 '}';
     }
+
+    /**
+     * 是否在同一个点
+     * @param chessboardPoint
+     * @return
+     */
+    public boolean isSamePosition(ChessboardPoint chessboardPoint) {
+        if (chessboardPoint == null) {
+            return false;
+        }
+
+        return this.x == chessboardPoint.getX() && this.y == chessboardPoint.getY();
+    }
 }
